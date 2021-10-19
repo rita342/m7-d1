@@ -8,6 +8,7 @@ export default class Search extends React.Component {
 
     state = {
         query: '',
+        data:[]
          
     }
 
