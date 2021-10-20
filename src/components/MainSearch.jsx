@@ -59,7 +59,8 @@ export default class MainSearch extends React.Component {
                     </Col>
                     <Col xs={10} className='mx-auto mb-5'>
                         {
-                            this.state.jobs.map(jobData => <Job data={jobData} />)
+                            this.state.jobs.map(jobData => <Job data={jobData} 
+                            />)
                         }
                     </Col>
                 </Row>
