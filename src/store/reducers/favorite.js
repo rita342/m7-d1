@@ -1,35 +1,27 @@
-import {initialState } from "/..actions"
-const initialState = {
-    favorite: []
-}
+import {initialState } from "/..index";
+import {ADD_FAV} from "../actions";
 
-export default function mainReducer(state = initialState, action) {
 
-    console.log(action, state)
+ 
 
-    const { type, payload } = action
+const favreducer = (state= initialState.data, action) => {
+    switch(action.type) {
 
-    switch(type) {
-        case 'Get_JOBS': 
-            return {
-                ...state,
-              stock: [...state.stock, payload]
+
+
+  
+        case 'ADD_FAV': 
+        return{
+            ...state,
+            stock: action.payload,
+        }
+           defaul:
+           return state
+          
             }
-            case 'ADD_FAV': 
-            return {
-                ...state,
-               stock: [...state.stock, payload]
-            }
-            case 'REM_FAV': 
-            return {
-                ...state,
-                stock: [...state.stock, payload]
-            }
-         
-            
+           
+        
+    
+}    
 
-        default: 
-            return state
-    }
-
-}
+  export default favreducer 
