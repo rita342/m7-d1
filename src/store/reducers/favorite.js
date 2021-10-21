@@ -1,3 +1,4 @@
+import {initialState } from "/..actions"
 const initialState = {
     favorite: []
 }
@@ -9,16 +10,24 @@ export default function mainReducer(state = initialState, action) {
     const { type, payload } = action
 
     switch(type) {
-        case 'ADD_TO_FAV': 
+        case 'Get_JOBS': 
             return {
                 ...state,
-                favorite: [...state.favorite, payload]
+              stock: [...state.stock, payload]
             }
-        case 'REMOVE_FROM_FAV':
+            case 'ADD_FAV': 
             return {
                 ...state,
-                favorite: state.favorite.filter(company => company !== payload)
+               stock: [...state.stock, payload]
             }
+            case 'REM_FAV': 
+            return {
+                ...state,
+                stock: [...state.stock, payload]
+            }
+         
+            
+
         default: 
             return state
     }
