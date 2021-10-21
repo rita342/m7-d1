@@ -1,45 +1,36 @@
 import Button from "react-bootstrap/Button";
-import { FaTrash } from "react-icons/fa";
-import { Col, Row } from "react-bootstrap";
+import React from 'react'
+import { Container, Row, Col, ListGroup, ListGroupItem} from 'react-bootstrap'
+
 import { connect } from 'react-redux'
-import { removeItemFromCartAction } from "../actions";
-
-
-const mapStateToProps = (state) => ({
-  Favorite: state.Favorite.company,
-  
-})
+import { removeFromFav } from '../store/actions'
 
 const mapDispatchToProps = (dispatch) => ({
-  removeFromFavorite: (fav) => {
-    dispatch(removeFromFavorite(fav))
-  }
+    removeFromFav: (f) => { dispatch(removeFromFav(f)) }
 })
 
-class Favorite extends React.Component {
+class Favourite extends React.Component {
     render() {
-        return(
-            <Row>
-      <Col sm={12}>
-        <ul style={{ listStyle: "none" }}>
-          {this.props.Favorite.map(fav => (
-            <li key={i} className="my-4">
-              <Button variant="danger" onClick={() => removeFromFavorite(fav)}>
-                <FaTrash />
-              </Button>
-             
-              {fav.title}
-            </li>
-           ) )}
-        </ul>
-      </Col>
-      </Row>
-        
+        return (
+            <Container>
+                <Row>
+                    <Col xs={12}>
+                        <ListGroup>
+                        {
+                            this.props.favourites.map(f => (
+                                <ListGroupItem>
+                                    <Button onClick={() => this.props.removeFromFav(f)}></Button>
+                                    <span>{ f }</span>
+                                </ListGroupItem>
+                            ))
+                            
+                        }
+                        </ListGroup>
+                    </Col>
+                </Row>
+            </Container>
         )
     }
-
 }
 
- 
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorite);
+export default connect(s => s, mapDispatchToProps)(Favourite)

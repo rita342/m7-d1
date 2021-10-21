@@ -39,6 +39,7 @@ export default class MainSearch extends React.Component {
                 <Row>
                     <Col xs={10} className='mx-auto my-3'>
                         <h1>Welcome To Job Search Engine</h1>
+                        <Link to="/favourite" className="btn btn-primary">Favourites</Link>
                     </Col>
    
                     <Col xs={10} className='mx-auto'>
