@@ -3,69 +3,47 @@ import { Container, Row, Col, Form,Navbar,Nav,Button } from 'react-bootstrap'
 import Job from './Job'
 import { Link } from 'react-router-dom'
 
-export default class MainSearch extends React.Component {
+const MainSearch = () => {
+    const [searchTerm, setSearchTerm] = useState("")
+    const [dataFetched, setDataFetched] = useState([])
 
-    state = {
-        query: '',
-        jobs: []
-    }
+    const baseString = 'https://remotive.io/api/remote-jobs?search='
 
-    baseEndpoint = 'https://strive-jobs-api.herokuapp.com/jobs?search='
+    const onSubmit = async (event) => {
+        event.preventDefault()
 
-
-    handleChange = (e) => {
-        this.setState({ query: e.target.value })
-    }
-
-    handleSubmit = async (e) => {
-        e.preventDefault()
-
-        const response = await fetch(this.baseEndpoint + this.state.query )
+        const response = await fetch(baseString + searchTerm)
 
         if (!response.ok) {
-            alert('Error fetching results')
+            console.error("Fetching error.")
             return
         }
 
-        const { data } = await response.json()
+        const { jobs } = await response.json()
 
-        this.setState({ jobs: data })
-
+        setDataFetched(jobs)
     }
 
-    render() {
-        return (
-            <Container>
-                <Row>
-                    <Col xs={10} className='mx-auto my-3'>
-                        <h1>Welcome To Job Search Engine</h1>
-                        <Link to="/favourite" className="btn btn-primary">Favourites</Link>
-                    </Col>
-   
-                    <Col xs={10} className='mx-auto'>
-                    <Navbar bg="primary" variant="dark">
-    <Navbar.Brand href="#home"><Link to = "/Favorite" className="btn">My Favorite Company</Link></Navbar.Brand>
-    <Nav className="mr-auto">
-     
-    </Nav>
-    
-    <Form onSubmit={this.handleSubmit}>
-    <Form.Control type="search" value={this.state.query} onChange={this.handleChange} placeholder="type and press Enter" />
-      
-    </Form>
-  </Navbar>
-
-                        
-                        
-                    </Col>
-                    <Col xs={10} className='mx-auto mb-5'>
-                        {
-                            this.state.jobs.map(jobData => <Job data={jobData} 
-                            />)
-                        }
-                    </Col>
-                </Row>
-            </Container>
-        )
+    const onSearchChange = (event) => {
+        setSearchTerm(event.target.value)
     }
-}
+
+    return (
+        <div>
+          <Link to="/favourites" className="btn btn-primary">
+            Favourites
+          </Link>
+        <Form className="m-5" onSubmit={onSubmit}>
+            <Form.Label className="text-left">Search for jobs:</Form.Label>
+            <Form.Control value={searchTerm} onChange={onSearchChange} type="text" autoComplete="off" placeholder="Search" />
+            {dataFetched.map(job => {
+                return (
+                    <Job data={job}/>
+                )
+            })}
+        </Form>
+        </div>
+    );
+  }
+  
+  export default MainSearch;
