@@ -2,25 +2,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import MainSearch from './components/MainSearch';
 import CompanySearchResults from './components/CompanySearchResults';
-import Favourites from './components/Favourites';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import store from './store';
+import { BrowserRouter, Route ,Link} from 'react-router-dom'
+import store from './store'
 import { Provider } from 'react-redux'
-import { configureStore, persistor } from "./store";
-import { PersistGate } from "redux-persist/integration/react";
+import Favourites from './components/Favourites';
 
 function App() {
   return (
-    <Provider store={configureStore}>
-       <PersistGate persistor={persistor} loading={null}>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path='/' component={MainSearch} />
-          <Route exact path='/favourites' component={Favourites} />
-          <Route exact path='/:companyName' component={CompanySearchResults} />
-        </Switch>
-      </BrowserRouter>
-      </PersistGate>
+    <Provider store = {store}>
+    <BrowserRouter>
+      <Route exact path='/' component={MainSearch} />
+      <Route exact path='/ Favourites' component={Favourites} />
+      <Route exact path='/:companyName' component={CompanySearchResults} />
+    </BrowserRouter>
     </Provider>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Row, Col ,Card} from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 import Job from './Job'
+
 
 
 export default class CompanySearchResults extends React.Component {
@@ -27,18 +28,7 @@ export default class CompanySearchResults extends React.Component {
             <Row>
                 <Col>
                     {
-                        this.state.jobs.map(jobData =>(
-                            <Card>
-                            <Card.Header>Jobs</Card.Header>
-                            <Card.Body>
-                              <Card.Title>{jobData.title}</Card.Title>
-                              <Card.Text>
-                              {jobData.category}
-                              </Card.Text>
-                             
-                            </Card.Body>
-                          </Card>
-                        ))
+                        this.state.jobs.map(jobData => <Job  data={jobData} />)
                     }
                 </Col>
             </Row>
