@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col,Card,Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { addToFav, removeFromFav } from '../store/actions'
 //import { connect } from 'react-redux'
@@ -29,17 +29,21 @@ const dispatch = useDispatch();
     }
 
     return (
-        <Row className="mx-0 mt-3 p-3" style={{ border: '1px solid #00000033', borderRadius: 4 }}>
-            <Col xs={3} className="d-flex">
-                {
+        <Card style={{ width: '18rem',marginTop:'30px' }}>
+        
+        <Card.Body>
+          <Card.Title> <Link to={`/${data.company_name}`}>{data.company_name}</Link></Card.Title>
+          <Card.Text>
+          {
                     isFav
-                        ? <button className="btn btn-danger" size={16} className="me-4 my-auto" onClick={toggleFavourite}>add to favourite</button>
-                        : <button color="gold" size={16} className="me-4 my-auto" onClick={toggleFavourite}>its added</button>
+                        ? <button className="btn btn-danger" size={16} className="me-4 my-auto" onClick={toggleFavourite}>it's added</button>
+                        : <button color="gold" size={16} className="me-4 my-auto" onClick={toggleFavourite}>add to favourite</button>
                 }
-                <Link to={`/${data.title}`}>{data.title}</Link>
-            </Col>
-            
-        </Row>
+          </Card.Text>
+       
+        </Card.Body>
+      </Card>
+        
     )
 }
 
